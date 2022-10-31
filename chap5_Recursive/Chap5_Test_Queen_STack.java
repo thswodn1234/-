@@ -18,7 +18,7 @@ public class Chap5_Test_Queen_STack {
 		// function to check whether the position is safe or not
 		static boolean isSafe(int board[][], int row, int col) {
 			int i, j;
-
+			
 			return true;
 		}
 
