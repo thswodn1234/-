@@ -5,6 +5,17 @@ import java.util.Stack;
 
 //N Queen problem / backtracking
 // nextMove가 int반환
+// ---교수님 피드백--- 1105
+// -1. ix는  while (ix<d.length) 순환문 밖에서 실행되어야 함.
+// -2. count는 stack push할 때 증가, pop하면 count--를 해야 함
+// -3. NextMove() 함수는 한군데서만 호출되어야 함 보내준 버젼으로는 디버깅이 어렵고 > 
+// -4. 내가 플라토에 올린 프로그램 골격에 맞추어 수정하는 작업이 더 빠르게 해결할 수 있음>> 
+// 	프로그램 흐름을 먼저 ix를 증가시키고 iy =0으로 하여 
+// 	NextMove()를 호출하여 다음에 놓을 col을 정하고
+// 	col이 정상 범위이면 stack에 push하고, 
+// 	정상범위가 아니면 d.length이면 pop을 한 다음에 
+//	다음 col에 대하여 다시 NextMove()을 실행하는 흐름으로 
+// 	수정하는 것이 필요함
 class Point {
 	int x, y;
 
