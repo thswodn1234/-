@@ -1,4 +1,3 @@
-package chap5_Recursive;
 
 import java.util.Stack;
 
@@ -18,64 +17,48 @@ class Backtracking_Queen {
 
 	public static void SolveQueen(int[][] d) {
 
-		int count = 0;
-		int ix = 0, iy = 0;
+		int count = 0; // 퀸 개수
+		int ix = 0, iy = 0; // ix : 행
 
 		Stack<Point> st = new Stack<>();
-
 		Point p = new Point(ix, iy);
-
-		System.out.println("while  " + ix + " " + iy);
-		d[ix][iy] = 1;
-		count++;
 		st.push(p);
 
+		int cy = 0; // cy : 열
+
 		while (count < 8) {
-			p = st.pop();
-			ix = p.x;
-			iy = p.y;
-			
-			ix++;
-			int cy = 0;
+
 			while (ix < d.length) {
-				
-				cy = NextMove(d, ix, cy);
-				while(cy == d.length) {
-					ix++;
-					cy = 0;
-					cy = NextMove(d, ix, cy);
-				}
-				System.out.println("while  " + ix + " " + cy);
-				
-				while (cy < d[0].length) {
-					d[ix][cy] = 1;
-					count++;
-					Point px = new Point(ix, cy);
-					st.push(px);
-					ix++;
-					cy=0;
-					break;
+				cy = NextMove(d, ix, iy); // 해당 행에 퀸을 놓을 수 있는지 체크
+				if (cy == d.length) { // 해당 행 불가능
+					do {
+						p = st.pop(); // 이전 퀸 놓았던 행,열 반환 (한 행에 무조건 퀸 1개 있어야함 )
+						d[p.x][p.y] = 0;
+						System.out.println("d[" + p.x + "]" + "[" + p.y + "]" + " = 0");
+						count--;
+						System.out.println("count : " + count);
+						ix = p.x;
+						cy = ++p.y; // 이전 퀸 놓았던 바로 옆자리 체크
+						cy = NextMove(d, ix, cy);
+					} while (cy == d.length);
 
 				}
-
+				System.out.println("d[" + ix + "]" + "[" + cy + "]" + " = 1");
+				d[ix][cy] = 1;
+				count++;
+				System.out.println("count : " + count);
+				Point p2 = new Point(ix, cy);
+				st.push(p2);
+				ix++; // 행 증가
 			}
 
-			if (cy != d[0].length) {
-				break;
-			} else {
-				p = st.pop();
-				count--;
-				ix = p.x;
-				cy = p.y;
-				cy++;
-
-			}
 		}
+
 	}
 
 	public static boolean checkRow(int[][] d, int crow) {
 
-		for (int i = 0; i < d[0].length; i++)
+		for (int i = 0; i < d.length; i++)
 			if (d[crow][i] == 1)
 				return false;
 		return true;
@@ -99,10 +82,10 @@ class Backtracking_Queen {
 		// 0<=
 		// x,y
 		// <= 7
-		for (int i = cx, j = cy; 0 <= i && i < 7 && 0 <= j && j <= 7; i++, j--)
+		for (int i = cx, j = cy; 0 <= i && i <= 7 && 0 <= j && j <= 7; i++, j--)
 			if (d[i][j] == 1)
 				return false;
-		for (int i = cx, j = cy; 0 <= i && i < 7 && 0 <= j && j <= 7; i--, j++)
+		for (int i = cx, j = cy; 0 <= i && i <= 7 && 0 <= j && j <= 7; i--, j++)
 			if (d[i][j] == 1)
 				return false;
 
@@ -115,10 +98,10 @@ class Backtracking_Queen {
 		// x--,
 		// y--
 
-		for (int i = cx, j = cy; 0 <= i && i < 7 && 0 <= j && j <= 7; i++, j++)
+		for (int i = cx, j = cy; 0 <= i && i <= 7 && 0 <= j && j <= 7; i++, j++)
 			if (d[i][j] == 1)
 				return false;
-		for (int i = cx, j = cy; 0 <= i && i < 7 && 0 <= j && j <= 7; i--, j--)
+		for (int i = cx, j = cy; 0 <= i && i <= 7 && 0 <= j && j <= 7; i--, j--)
 			if (d[i][j] == 1)
 				return false;
 
@@ -128,8 +111,7 @@ class Backtracking_Queen {
 	public static boolean CheckMove(int[][] d, int x, int y) {// (x,y)로 이동
 		// 가능한지를
 		// check
-		if (checkRow(d, x) && checkCol(d, y) && checkDiagSE(d, x, y)
-				&& checkDiagSW(d, x, y))
+		if (checkRow(d, x) && checkCol(d, y) && checkDiagSE(d, x, y) && checkDiagSW(d, x, y))
 			return true;
 		return false;
 
@@ -137,11 +119,11 @@ class Backtracking_Queen {
 
 	public static int NextMove(int[][] d, int row, int col) {
 		// 특정 row에 대하여 col을 이동하여 이동할 체크하고 위치 col을 리턴한다
-		while (col < d[0].length) {
+		while (col < d.length) {
 			if (CheckMove(d, row, col))
 				return col;
-			col++;
-			
+			++col;
+
 		}
 		return d.length;// 이유는?
 	}
