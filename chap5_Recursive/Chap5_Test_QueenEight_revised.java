@@ -4,6 +4,7 @@ import java.util.Stack;
 //https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/?ref=lbp
 
 //N Queen problem / backtracking
+// nextMove가 int반환
 class Point {
 	int x, y;
 
