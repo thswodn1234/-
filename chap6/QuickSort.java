@@ -1,11 +1,22 @@
 package chap6;
 
-//퀵 정렬(스택)
+//퀵 정렬(스택을 이용한)
 
 import java.util.Scanner;
 import java.util.Stack;
+import java.math.*;
 
 public class QuickSort {
+	
+	static class Point {
+		private int ix;
+		private int iy;
+
+		public Point(int x, int y) {
+			ix = x;
+			iy = y;
+		}
+	}
 	
 	static void swap(int[] a, int idx1, int idx2) {
 		int t = a[idx1];
@@ -16,15 +27,17 @@ public class QuickSort {
 	
 	static void quickSort(int[] a, int left, int right) {
 	
-		Stack<Integer> stack = new Stack<>();
+		Stack<Point> stack = new Stack<>();
+		
+		Point p = new Point(left, right);
 
-
-		stack.push(left);
-		stack.push(right);
+		stack.push(p);
 
 		while (stack.isEmpty() != true) {
-			int pr = right = stack.pop(); 
-			int pl = left = stack.pop(); 
+			p = stack.pop();
+			
+			int pl = left = p.ix; 
+			int pr = right = p.iy; 
 			int x = a[(left + right) / 2]; 
 
 			do {
@@ -37,12 +50,13 @@ public class QuickSort {
 			} while (pl <= pr);
 
 			if (left < pr) {
-				stack.push(left); 
-				stack.push(pr); 
+				Point p2 = new Point(left, pr);
+				stack.push(p2);
+				
 			}
 			if (pl < right) {
-				stack.push(pl); 
-				stack.push(right); 
+				Point p3 = new Point(pl, right);
+				stack.push(p3);
 			}
 		}
 	}
@@ -58,7 +72,8 @@ public class QuickSort {
 
 			for (int i = 0; i < nx; i++) {
 				System.out.print("x[" + i + "]: ");
-				x[i] = stdIn.nextInt();
+				double d = Math.random();
+				x[i] = (int) (d * 50);
 			}
 
 			quickSort(x, 0, nx - 1); 

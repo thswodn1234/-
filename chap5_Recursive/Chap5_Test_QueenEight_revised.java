@@ -143,7 +143,7 @@ class Backtracking_Queen {
 			col++;
 			
 		}
-		return d.length;// 이유는?
+		return d.length;
 	}
 
 }
