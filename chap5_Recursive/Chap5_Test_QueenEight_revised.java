@@ -1,3 +1,5 @@
+package chap5_Recursive;
+
 
 import java.util.Stack;
 
@@ -16,6 +18,10 @@ import java.util.Stack;
 // 	정상범위가 아니면 d.length이면 pop을 한 다음에 
 //	다음 col에 대하여 다시 NextMove()을 실행하는 흐름으로 
 // 	수정하는 것이 필요함
+
+// ---교수님 피드백--- 1106
+//그런데 NextMove()를 2군데서 호출하는 것은 개선 여지가 있음
+//=> pop() 한 후에  do while()을 빠져나가서 실행하는 것으로 개선 여지 있음
 class Point {
 	int x, y;
 

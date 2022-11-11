@@ -4,7 +4,7 @@ package chap6;
 
 import java.util.Scanner;
 import java.util.Stack;
-import java.math.*;
+//import java.math.*;
 
 public class QuickSort {
 	
