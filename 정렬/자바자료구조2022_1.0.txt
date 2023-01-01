@@ -1,0 +1,139 @@
+자바 자료구조 2022, 1회차 과정
+
+1장 알고리즘
+1단계: 스트링 배열의 sorting, 중복 제거
+2단계: ArrayList<String> list의 sort, 중복 제거
+
+- ArrayList<String> list = new ArrayList<string>();
+- 화면에서 스트링을 입력받아 list에 Add()한다.
+- sort 정렬한다
+- merge하여 sort한다.
+
+2장 기본 자료구조
+1단계: 난수를 생성하여 arrayList 생성, sort, 역순으로 정렬, 화면에서 입력받아 정렬된 리스트에서 binary search() 함수 사용, 두개의 list가 같은지 비교한다
+2단계: 페이지 91의 클래스 배열, vector class 사용, 객체 배열, sort 정렬, binary search() 사용, 두개의 객체 배열 리스트가 같은지 비교
+
+3장 검색
+1단계: 페이지 125, compareTo()함수의 구현
+- 사용자 정의 객체들로 구성된 ArrayList의 정렬
+- 페이지 127: 실습 3-7
+// Java Program to Sort an ArrayList
+ 
+// Importing generic java files
+import java.util.*;
+ 
+// Implements comparable interface into custom class
+class Car implements Comparable<Car> {
+    int ModalNo;
+    String name;
+    int stock;
+ 
+    // Parameterized constructor of the class
+    Car(int ModalNo, String name, int stock)
+    {
+        this.ModalNo = ModalNo;
+        this.name = name;
+        this.stock = stock;
+    }
+ 
+    // Override the compareTo method
+    public int compareTo(Car car)
+    {
+        if (stock == car.stock)
+            return 0;
+        else if (stock > car.stock)
+            return 1;
+        else
+            return -1;
+    }
+}
+ 
+// Main driver method
+class GFG {
+ 
+    // Main driver method
+    public static void main(String[] args)
+    {
+        // Create the ArrayList object
+        ArrayList<Car> c = new ArrayList<Car>();
+        c.add(new Car(2018, "Kia", 20));
+        c.add(new Car(2020, "MG", 13));
+        c.add(new Car(2013, "creta", 10));
+        c.add(new Car(2015, "BMW", 50));
+        c.add(new Car(2017, "Audi", 45));
+ 
+        // Call the sort function
+        Collections.sort(c);
+ 
+        // Iterate over ArrayList using for each loop
+        for (Car car : c) {
+ 
+            // Print the sorted ArrayList
+            System.out.println(car.ModalNo + " " + car.name
+                               + " " + car.stock);
+        }
+    }
+}
+====================================
+// Java Program to Sort an ArrayList
+ 
+// Step 1: ImportingDB files
+import java.util.*;
+ 
+// Class 1: Parent Class
+class Car {
+    int ModalNo;
+    String name;
+    int stock;
+ 
+    // Parameterized constructor
+    Car(int ModalNo, String name, int stock)
+    {
+        this.ModalNo = ModalNo;
+        this.name = name;
+        this.stock = stock;
+    }
+}
+ 
+// Class 2: Child class
+// creates the comparator for comparing stock value
+class StockComparator implements Comparator<Car> {
+ 
+    // Function to compare
+    public int compare(Car c1, Car c2)
+    {
+        if (c1.stock == c2.stock)
+            return 0;
+        else if (c1.stock > c2.stock)
+            return 1;
+        else
+            return -1;
+    }
+}
+ 
+class GFG {
+ 
+    // Main driver method
+    public static void main(String[] args)
+    {
+        // Create the ArrayList object
+        ArrayList<Car> c = new ArrayList<Car>();
+        c.add(new Car(2018, "Kia", 20));
+        c.add(new Car(2020, "MG", 13));
+        c.add(new Car(2013, "creta", 10));
+        c.add(new Car(2015, "BMW", 50));
+        c.add(new Car(2017, "Audi", 45));
+ 
+        // Call the sort function
+        Collections.sort(c, new StockComparator());
+ 
+        // For each loop to iterate
+        for (Car car : c) {
+           
+          // Print the sorted ArrayList
+            System.out.println(car.stock + " " + car.name
+                               + " " + car.ModalNo);
+        }
+    }
+}
+
